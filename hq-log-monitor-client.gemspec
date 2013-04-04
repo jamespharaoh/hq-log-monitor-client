@@ -22,12 +22,8 @@ Gem::Specification.new do
 
 	spec.rubyforge_project = hq_project_name
 
-	#spec.add_dependency "bson_ext", ">= 1.8.2"
-	spec.add_dependency "hq-tools", ">= 0.2.0"
+	spec.add_dependency "hq-tools", ">= 0.3.0"
 	spec.add_dependency "libxml-ruby", ">= 2.6.0"
-	#spec.add_dependency "mongo", ">= 1.8.2"
-	#spec.add_dependency "multi_json", ">= 1.6.1"
-	#spec.add_dependency "rack", ">= 1.5.1"
 
 	spec.add_development_dependency "capybara", ">= 2.0.2"
 	spec.add_development_dependency "cucumber", ">= 1.2.1"
