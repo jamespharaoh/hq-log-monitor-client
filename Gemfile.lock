@@ -1,15 +1,16 @@
 PATH
   remote: .
   specs:
-    hq-log-monitor-client (0.0.0)
-      hq-tools (>= 0.2.0)
+    hq-log-monitor-client (0.1.0)
+      hq-tools (>= 0.3.0)
       libxml-ruby (>= 2.6.0)
+      multi_json (>= 1.7.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     builder (3.2.0)
-    capybara (2.0.2)
+    capybara (2.0.3)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -23,21 +24,20 @@ GEM
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.11.6)
       multi_json (~> 1.3)
-    diff-lcs (1.2.1)
-    ffi (1.5.0)
+    diff-lcs (1.2.2)
+    ffi (1.6.0)
     gherkin (2.11.6)
       json (>= 1.7.6)
-    hq-tools (0.2.0)
-      rake (>= 10.0.3)
+    hq-tools (0.3.0)
     json (1.7.7)
     libxml-ruby (2.6.0)
-    mime-types (1.21)
-    multi_json (1.7.1)
+    mime-types (1.22)
+    multi_json (1.7.2)
     nokogiri (1.5.9)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.0.3)
+    rake (10.0.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)

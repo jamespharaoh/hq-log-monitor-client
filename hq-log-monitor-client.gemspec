@@ -24,6 +24,7 @@ Gem::Specification.new do
 
 	spec.add_dependency "hq-tools", ">= 0.3.0"
 	spec.add_dependency "libxml-ruby", ">= 2.6.0"
+	spec.add_dependency "multi_json", ">= 1.7.2"
 
 	spec.add_development_dependency "capybara", ">= 2.0.2"
 	spec.add_development_dependency "cucumber", ">= 1.2.1"
