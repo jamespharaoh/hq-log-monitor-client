@@ -66,3 +66,12 @@ Then /^the following events should be submitted:$/ do
 	events_expected = YAML.load "[#{events_str}]"
 	$events_received.should == events_expected
 end
+
+Then /^the script should return (\d+)$/ do
+	|expect_str|
+
+	expect = expect_str.to_i
+
+	@script.status.should == expect
+
+end

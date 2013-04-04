@@ -20,43 +20,44 @@ Feature: Log monitor client correctly reports matching lines
   Scenario: Ignore lines which don't match any pattern
 
     Given a file "logfile.log":
-       """
-       NOTICE Not an error
-       """
+      """
+      NOTICE Not an error
+      """
 
-     When I run log-monitor-client with config "default.config"
+    When I run log-monitor-client with config "default.config"
 
-     Then no events should be submitted
+    Then no events should be submitted
+    And the script should return 0
 
   Scenario: Produce events for lines which match a pattern
 
     Given a file "logfile.log":
-       """
-       WARNING This is a warning
-       """
+      """
+      WARNING This is a warning
+      """
 
-     When I run log-monitor-client with config "default.config"
+    When I run log-monitor-client with config "default.config"
 
-     Then the following events should be submitted:
-       """
-       {
-         type: warning,
-         source: { class: class, host: host, service: service },
-         location: { file: logfile.log, line: 0 },
-         lines: {
-           before: [],
-           matching: WARNING This is a warning,
-           after: [],
-         },
-       }
-       """
+    Then the following events should be submitted:
+      """
+      {
+        type: warning,
+        source: { class: class, host: host, service: service },
+        location: { file: logfile.log, line: 0 },
+        lines: {
+          before: [],
+          matching: WARNING This is a warning,
+          after: [],
+        },
+      }
+      """
 
   Scenario: Only produce an event for the first matched pattern
 
     Given a file "logfile.log":
-       """
-       CRITICAL WARNING This is a confused log entry
-       """
+      """
+      CRITICAL WARNING This is a confused log entry
+      """
 
     When I run log-monitor-client with config "default.config"
 
@@ -73,3 +74,4 @@ Feature: Log monitor client correctly reports matching lines
         },
       }
       """
+    And the script should return 0

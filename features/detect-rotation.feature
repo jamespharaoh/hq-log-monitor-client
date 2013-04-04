@@ -56,6 +56,7 @@ Feature: Log monitor client does detects rotated log files
         },
       }
       """
+    And the script should return 0
 
   Scenario: Log file not rotated
 
@@ -84,3 +85,4 @@ Feature: Log monitor client does detects rotated log files
         },
       }
       """
+    And the script should return 0

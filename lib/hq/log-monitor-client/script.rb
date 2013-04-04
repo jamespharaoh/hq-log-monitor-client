@@ -14,11 +14,15 @@ class Script
 	attr_accessor :stderr
 
 	def main
+
 		process_args
 		read_config
 		read_cache
 		perform_checks
 		write_cache
+
+		@status = 0
+
 	end
 
 	def process_args

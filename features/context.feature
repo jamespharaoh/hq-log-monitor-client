@@ -51,6 +51,7 @@ Feature: Log monitor client provides context lines correctly
         }
       }
       """
+    And the script should return 0
 
   Scenario: Start of large file
 
@@ -83,6 +84,7 @@ Feature: Log monitor client provides context lines correctly
         }
       }
       """
+    And the script should return 0
 
   Scenario: End of large file
 
@@ -115,6 +117,7 @@ Feature: Log monitor client provides context lines correctly
         }
       }
       """
+    And the script should return 0
 
   Scenario: Middle of short file
 
@@ -144,3 +147,4 @@ Feature: Log monitor client provides context lines correctly
         }
       }
       """
+    And the script should return 0

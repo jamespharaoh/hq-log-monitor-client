@@ -19,8 +19,11 @@ Feature: Log monitor client does skips files which don't appear to have changed
       """
 
   Scenario: Ignore lines which don't match any pattern
+
     When I run log-monitor-client with config "default.config"
+
     Then no events should be submitted
+    And the script should return 0
 
   Scenario: Timestamp changed, size unchanged
 
@@ -49,6 +52,7 @@ Feature: Log monitor client does skips files which don't appear to have changed
         },
       }
       """
+    And the script should return 0
 
   Scenario: Size changed, timestamp unchanged
 
@@ -77,6 +81,7 @@ Feature: Log monitor client does skips files which don't appear to have changed
         },
       }
       """
+    And the script should return 0
 
   Scenario: Size and timestamp unchanged
 
@@ -93,3 +98,5 @@ Feature: Log monitor client does skips files which don't appear to have changed
     When I run log-monitor-client with config "default.config"
 
     Then no events should be submitted
+    And the script should return 0
+
