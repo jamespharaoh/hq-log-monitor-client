@@ -1,0 +1,1 @@
+Utility to monitor log files and submit lines which match regular expressions to a server via HTTP
