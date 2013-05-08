@@ -2,6 +2,7 @@ require "hq/tools/getopt"
 require "net/http"
 require "multi_json"
 require "xml"
+require "yaml"
 
 module HQ
 module LogMonitorClient
