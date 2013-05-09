@@ -181,7 +181,7 @@ class Script
 								file_io,
 								max_before + max_after + 1
 
-						file_hash = 0
+						file_digest = Digest::MD5.new
 
 						# check if the file has changed
 
@@ -222,9 +222,11 @@ class Script
 
 									end
 
-									file_hash = [ file_hash, line.hash ].hash
+									file_digest.update line
 
 								end
+
+								file_hash = file_digest.to_s
 
 								if file_hash != cache_file[:hash]
 
@@ -249,14 +251,14 @@ class Script
 							debug "seeking to start"
 							file_io.seek 0
 							file_reader.reset
-							file_hash = 0
+							file_digest = Digest::MD5.new
 						end
 
 						# scan the new part of the file
 
 						while line = file_reader.gets
 
-							file_hash = [ file_hash, line.hash ].hash
+							file_digest.update line
 
 							# check for a match
 
@@ -307,6 +309,8 @@ class Script
 						end
 
 						# save the file's current info in the cache
+
+						file_hash = file_digest.to_s
 
 						file_lines = file_reader.next_line_number
 
