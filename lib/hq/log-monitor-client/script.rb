@@ -34,10 +34,16 @@ class Script
 			{ :name => :config,
 				:required => true },
 
+			{ :name => :debug,
+				:boolean => true,
+				:required => false },
+
 		]
 
 		@args.empty? \
 			or raise "Extra args on command line"
+
+		@debug = @opts[:debug]
 
 	end
 
@@ -104,6 +110,8 @@ class Script
 		@service_elems.each do
 			|service_elem|
 
+			debug "==== service #{service_elem["name"]}"
+
 			fileset_elems = service_elem.find("fileset").to_a
 
 			fileset_elems.each do
@@ -137,6 +145,8 @@ class Script
 				file_names.each do
 					|file_name|
 
+					debug "-- file #{file_name}"
+
 					file_mtime = File.mtime file_name
 					file_size = File.size file_name
 
@@ -147,12 +157,21 @@ class Script
 					if cache_file &&
 						file_mtime == cache_file[:mtime] &&
 						file_size == cache_file[:size]
+
+						debug "mtime %s and size %s match, skipping" % [
+							file_mtime,
+							file_size,
+						]
+
 						next
+
 					end
 
 					# scan the file for matching lines
 
 					mode = cache_file ? :scan : :report
+
+					debug "scanning"
 
 					File.open file_name, "r" do
 						|file_io|
@@ -170,19 +189,39 @@ class Script
 
 							if file_size < cache_file[:size]
 
+								debug \
+									"size %s is less than cache size %s, " +
+									"starting from beginning" % [
+										file_size,
+										cache_file[:size],
+									]
+
 								changed = true
 
 							else
 
+								debug "checking start of file matches"
+
 								changed = false
 
 								cache_file[:lines].times do
+									|line_num|
 
 									line = file_reader.gets
 
 									unless line
+
+										debug \
+											"only read %s lines, previously " +
+											"read %s, starting from " +
+											"beginning" % [
+												line_num,
+												cache_file[:lines],
+											]
+
 										changed = true
 										break
+
 									end
 
 									file_hash = [ file_hash, line.hash ].hash
@@ -190,7 +229,16 @@ class Script
 								end
 
 								if file_hash != cache_file[:hash]
+
+									debug \
+										"hash %s does not match previous " +
+										"value %s, starting from beginning" % [
+											file_hash,
+											cache_file[:hash]
+										]
+
 									changed = true
+
 								end
 
 							end
@@ -200,6 +248,7 @@ class Script
 						# go back to start if it changed
 
 						if changed
+							debug "seeking to start"
 							file_io.seek 0
 							file_reader.reset
 							file_hash = 0
@@ -260,6 +309,17 @@ class Script
 						end
 
 						# save the file's current info in the cache
+
+						file_lines = file_reader.next_line_number
+
+						debug \
+							"updating cache mtime %s, size %s, lines %s, " +
+							"hash %s" % [
+								file_mtime,
+								file_size,
+								file_lines,
+								file_hash,
+							]
 
 						@cache[:files][file_name] = {
 							mtime: file_mtime,
@@ -392,6 +452,11 @@ class Script
 			@buffer_end = 0
 		end
 
+	end
+
+	def debug message
+		return unless @debug
+		$stderr.puts message
 	end
 
 end
