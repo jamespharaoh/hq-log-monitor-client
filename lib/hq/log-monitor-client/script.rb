@@ -211,7 +211,7 @@ class Script
 									unless line
 
 										debug \
-											"only read %s lines, previously "
+											"only read %s lines, previously " \
 											"read %s" % [
 												line_num,
 												cache_file[:lines],
@@ -229,8 +229,8 @@ class Script
 								if file_hash != cache_file[:hash]
 
 									debug \
-										"hash %s does not match previous value"
-										"%s, starting from beginning" % [
+										"hash %s does not match previous " \
+										"value %s, starting from beginning" % [
 											file_hash,
 											cache_file[:hash]
 										]
@@ -311,8 +311,8 @@ class Script
 						file_lines = file_reader.next_line_number
 
 						debug \
-							"updating cache mtime %s, size %s, lines %s, hash "
-							"%s" % [
+							"updating cache mtime %s, size %s, lines %s, " \
+							"hash %s" % [
 								file_mtime,
 								file_size,
 								file_lines,
