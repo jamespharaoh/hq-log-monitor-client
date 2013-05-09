@@ -171,8 +171,6 @@ class Script
 
 					mode = cache_file ? :scan : :report
 
-					debug "scanning"
-
 					File.open file_name, "r" do
 						|file_io|
 
@@ -232,7 +230,7 @@ class Script
 
 									debug \
 										"hash %s does not match previous " \
-										"value %s, starting from beginning" % [
+										"value %s" % [
 											file_hash,
 											cache_file[:hash]
 										]
@@ -243,18 +241,22 @@ class Script
 
 							end
 
-						end
+							# go back to start if it changed
 
-						# go back to start if it changed
+							if changed
+								debug "seeking to start"
+								file_io.seek 0
+								file_reader.reset
+								file_digest = Digest::MD5.new
+							else
+								debug "start of file not changed"
+							end
 
-						if changed
-							debug "seeking to start"
-							file_io.seek 0
-							file_reader.reset
-							file_digest = Digest::MD5.new
 						end
 
 						# scan the new part of the file
+
+						debug "searching for events"
 
 						while line = file_reader.gets
 
