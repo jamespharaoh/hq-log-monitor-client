@@ -158,7 +158,7 @@ class Script
 						file_mtime == cache_file[:mtime] &&
 						file_size == cache_file[:size]
 
-						debug "mtime %s and size %s match, skipping" % [
+						debug "mtime %s and size %s match, skip" % [
 							file_mtime,
 							file_size,
 						]
@@ -190,8 +190,7 @@ class Script
 							if file_size < cache_file[:size]
 
 								debug \
-									"size %s is less than cache size %s, " +
-									"starting from beginning" % [
+									"size %s is less than cache size %s" % [
 										file_size,
 										cache_file[:size],
 									]
@@ -200,7 +199,7 @@ class Script
 
 							else
 
-								debug "checking start of file matches"
+								debug "scanning start of file"
 
 								changed = false
 
@@ -212,9 +211,8 @@ class Script
 									unless line
 
 										debug \
-											"only read %s lines, previously " +
-											"read %s, starting from " +
-											"beginning" % [
+											"only read %s lines, previously "
+											"read %s" % [
 												line_num,
 												cache_file[:lines],
 											]
@@ -231,8 +229,8 @@ class Script
 								if file_hash != cache_file[:hash]
 
 									debug \
-										"hash %s does not match previous " +
-										"value %s, starting from beginning" % [
+										"hash %s does not match previous value"
+										"%s, starting from beginning" % [
 											file_hash,
 											cache_file[:hash]
 										]
@@ -313,8 +311,8 @@ class Script
 						file_lines = file_reader.next_line_number
 
 						debug \
-							"updating cache mtime %s, size %s, lines %s, " +
-							"hash %s" % [
+							"updating cache mtime %s, size %s, lines %s, hash "
+							"%s" % [
 								file_mtime,
 								file_size,
 								file_lines,
